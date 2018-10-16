@@ -1,2 +1,2 @@
 # IA_P1
-Repository for Artificial Intelligence Class
+Repository for Artificial Intelligence Class Project
