@@ -65,3 +65,27 @@ def board_perform_move (board, move):
     final_board[pos_l(final)][pos_c(final)] = c_peg()
     
     return final_board
+
+# Class sol_state
+class sol_state:
+    def __init__(self, board):
+        self.board = board
+        
+    def __lt__(self, other_sol_state):
+        return self.board < other_sol_state.board
+    
+    def __le__(self, other_sol_state):
+        return self.board <= other_sol_state.board
+    
+    def __eq__(self, other_sol_state):
+        return self.board == other_sol_state.board
+    
+    def __ne__(self, other_sol_state):
+        return self.board != other_sol_state.board
+    
+    def __ge__(self, other_sol_state):
+        return self.board > other_sol_state.board
+    
+    def __gt__(self, other_sol_state):
+        return self.board >= other_sol_state.board    
+    
