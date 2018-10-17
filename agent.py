@@ -103,8 +103,17 @@ class solitaire(Problem):
        A solution cannot have more than 1 peg left on the board."""
     
     def __init__(self, board):
-        self.initial = sol_state(board)
+        Problem.__init__(self, sol_state(board))
         
     def actions(self, state):
         return board_moves(state.board)
+    
+    def result(self, state, action):
+        return sol_state(board_perform_move(state.board, action))
+        
+    def goal_test(self, state):
+        count_peg = 0
+        for i in range(len(state.board)):
+            count_peg += state.board[i].count(c_peg())
+        return count_peg == 1
     
