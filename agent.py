@@ -104,4 +104,7 @@ class solitaire(Problem):
     
     def __init__(self, board):
         self.initial = sol_state(board)
-
+        
+    def actions(self, state):
+        return board_moves(state.board)
+    
