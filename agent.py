@@ -1,3 +1,5 @@
+from search import Problem
+
 # TAI content
 def c_peg ():
     return "O"
@@ -12,6 +14,7 @@ def is_peg (e):
 def is_blocked (e):
     return e == c_blocked()
 
+
 # TAI pos
 # Tuplo (l, c)
 def make_pos (l, c):
@@ -21,6 +24,7 @@ def pos_l (pos):
 def pos_c (pos):
     return pos[1]
 
+
 # TAI move
 # List [p_initial, p_final]
 def make_move (i, f):
@@ -29,6 +33,7 @@ def move_initial (move):
     return move[0]
 def move_final (move):
     return move[1]
+
 
 # TAI board
 # Board [[line1], [line2], ..., [linen]] len(board) = num_lines , len(line) = num_collumns
@@ -66,6 +71,7 @@ def board_perform_move (board, move):
     
     return final_board
 
+
 # Class sol_state
 class sol_state:
     def __init__(self, board):
@@ -89,3 +95,13 @@ class sol_state:
     def __gt__(self, other_sol_state):
         return self.board >= other_sol_state.board    
     
+
+# Class solitaire
+# The agent main operations are defined here
+class solitaire(Problem):
+    """Models a Solitaire problem as a satisfaction problem. 
+       A solution cannot have more than 1 peg left on the board."""
+    
+    def __init__(self, board):
+        self.initial = sol_state(board)
+
