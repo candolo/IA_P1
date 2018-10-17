@@ -34,7 +34,22 @@ def move_final (move):
 # Board [[line1], [line2], ..., [linen]] len(board) = num_lines , len(line) = num_collumns
 # Move [p_initial, p_final]
 def board_moves (board):
-    #TODO
+    num_lines = len(board)
+    num_collumns = len(board[0])
+    moves = []
+    
+    for i in range(num_lines):
+        for j in range(num_collumns):
+            if is_peg(board[i][j]):
+                if (i-2) >= 0 and is_peg(board[i-1][j]) and is_empty(board[i-2][j]):
+                    moves.append([make_pos(i,j),make_pos(i-2,j)])
+                if (i+2) <= (num_lines-1) and is_peg(board[i+1][j]) and is_empty(board[i+2][j]):
+                    moves.append([make_pos(i,j),make_pos(i+2,j)])
+                if (j-2) >= 0 and is_peg(board[i][j-1]) and is_empty(board[i][j-2]):
+                    moves.append([make_pos(i,j),make_pos(i,j-2)])
+                if (j+2) <= (num_collumns-1) and is_peg(board[i][j+1]) and is_empty(board[i][j+2]):
+                    moves.append([make_pos(i,j),make_pos(i,j+2)])            
+    
     return moves
 
 def board_perform_move (board, move):
