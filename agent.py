@@ -29,3 +29,24 @@ def move_initial (move):
     return move[0]
 def move_final (move):
     return move[1]
+
+# TAI board
+# Board [[line1], [line2], ..., [linen]] len(board) = num_lines , len(line) = num_collumns
+# Move [p_initial, p_final]
+def board_moves (board):
+    #TODO
+    return moves
+
+def board_perform_move (board, move):
+    initial = move_initial(move)
+    final = move_final(move)
+    final_board = board
+    
+    middle_pos_l = (pos_l(initial) + pos_l(final))//2
+    middle_pos_c = (pos_c(initial) + pos_c(final))//2
+    
+    final_board[middle_pos_l][middle_pos_c] = c_empty()
+    final_board[pos_l(initial)][pos_c(initial)] = c_empty()
+    final_board[pos_l(final)][pos_c(final)] = c_peg()
+    
+    return final_board
