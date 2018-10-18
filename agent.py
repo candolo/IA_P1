@@ -1,4 +1,4 @@
-from search import (Problem, Node)
+from search import Problem
 
 import copy
 
@@ -130,8 +130,7 @@ class solitaire(Problem):
     
     def h(self, node):
         """Needed for informed search."""
-        state_node = copy.deepcopy(node.state)
         count_peg = -1
-        for i in range(len(state_node.board)):
-            count_peg += state_node.board[i].count(c_peg())
+        for i in range(len(node.state.board)):
+            count_peg += node.state.board[i].count(c_peg())
         return count_peg
