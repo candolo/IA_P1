@@ -1,4 +1,6 @@
-from search import Problem
+from search import (Problem, depth_first_tree_search)
+
+import copy
 
 # TAI content
 def c_peg ():
@@ -60,7 +62,7 @@ def board_moves (board):
 def board_perform_move (board, move):
     initial = move_initial(move)
     final = move_final(move)
-    final_board = board
+    final_board = copy.deepcopy(board)
     
     middle_pos_l = (pos_l(initial) + pos_l(final))//2
     middle_pos_c = (pos_c(initial) + pos_c(final))//2
@@ -105,15 +107,17 @@ class solitaire(Problem):
     def __init__(self, board):
         Problem.__init__(self, sol_state(board))
         
-    def actions(self, state):
+    def actions(self, state):        
         return board_moves(state.board)
     
     def result(self, state, action):
         return sol_state(board_perform_move(state.board, action))
         
-    def goal_test(self, state):
+    def goal_test(self, state):      
         count_peg = 0
         for i in range(len(state.board)):
             count_peg += state.board[i].count(c_peg())
         return count_peg == 1
     
+    def path_cost(self, c, state1, action, state2):
+        return c + 1
