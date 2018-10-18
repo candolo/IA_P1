@@ -1,4 +1,4 @@
-from search import (Problem, depth_first_tree_search)
+from search import (Problem, Node)
 
 import copy
 
@@ -95,7 +95,13 @@ class sol_state:
         return self.board > other_sol_state.board
     
     def __gt__(self, other_sol_state):
-        return self.board >= other_sol_state.board    
+        return self.board >= other_sol_state.board
+    
+    def __hash__(self):
+        hashable_matrix = []
+        for i in range(len(self.board)):
+            hashable_matrix.append(tuple(self.board[1]))
+        return hash(tuple(hashable_matrix))
     
 
 # Class solitaire
@@ -121,3 +127,11 @@ class solitaire(Problem):
     
     def path_cost(self, c, state1, action, state2):
         return c + 1
+    
+    def h(self, node):
+        """Needed for informed search."""
+        state_node = copy.deepcopy(node.state)
+        count_peg = -1
+        for i in range(len(state_node.board)):
+            count_peg += state_node.board[i].count(c_peg())
+        return count_peg
