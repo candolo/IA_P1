@@ -49,27 +49,22 @@ def board_moves (board):
         for j in range(num_collumns):
             if is_peg(board[i][j]):
                 if (i-2) >= 0 and is_peg(board[i-1][j]) and is_empty(board[i-2][j]):
-                    moves.append([make_pos(i,j),make_pos(i-2,j)])
+                    moves.append(make_move(make_pos(i,j),make_pos(i-2,j)))
                 if (i+2) <= (num_lines-1) and is_peg(board[i+1][j]) and is_empty(board[i+2][j]):
-                    moves.append([make_pos(i,j),make_pos(i+2,j)])
+                    moves.append(make_move(make_pos(i,j),make_pos(i+2,j)))
                 if (j-2) >= 0 and is_peg(board[i][j-1]) and is_empty(board[i][j-2]):
-                    moves.append([make_pos(i,j),make_pos(i,j-2)])
+                    moves.append(make_move(make_pos(i,j),make_pos(i,j-2)))
                 if (j+2) <= (num_collumns-1) and is_peg(board[i][j+1]) and is_empty(board[i][j+2]):
-                    moves.append([make_pos(i,j),make_pos(i,j+2)])            
+                    moves.append(make_move(make_pos(i,j),make_pos(i,j+2)))               
     
     return moves
 
 def board_perform_move (board, move):
-    initial = move_initial(move)
-    final = move_final(move)
     final_board = copy.deepcopy(board)
     
-    middle_pos_l = (pos_l(initial) + pos_l(final))//2
-    middle_pos_c = (pos_c(initial) + pos_c(final))//2
-    
-    final_board[middle_pos_l][middle_pos_c] = c_empty()
-    final_board[pos_l(initial)][pos_c(initial)] = c_empty()
-    final_board[pos_l(final)][pos_c(final)] = c_peg()
+    final_board[(pos_l(move_initial(move)) + pos_l(move_final(move)))//2][(pos_c(move_initial(move)) + pos_c(move_final(move)))//2] = c_empty()
+    final_board[pos_l(move_initial(move))][pos_c(move_initial(move))] = c_empty()
+    final_board[pos_l(move_final(move))][pos_c(move_final(move))] = c_peg()
     
     return final_board
 
@@ -98,10 +93,7 @@ class sol_state:
         return self.board >= other_sol_state.board
     
     def __hash__(self):
-        hashable_matrix = []
-        for i in range(len(self.board)):
-            hashable_matrix.append(tuple(self.board[1]))
-        return hash(tuple(hashable_matrix))
+        return hash(tuple([tuple(line) for line in self.board]))
     
 
 # Class solitaire
@@ -121,8 +113,8 @@ class solitaire(Problem):
         
     def goal_test(self, state):      
         count_peg = 0
-        for i in range(len(state.board)):
-            count_peg += state.board[i].count(c_peg())
+        for line in state.board:
+            count_peg += line.count(c_peg())
         return count_peg == 1
     
     def path_cost(self, c, state1, action, state2):
@@ -131,6 +123,6 @@ class solitaire(Problem):
     def h(self, node):
         """Needed for informed search."""
         count_peg = -1
-        for i in range(len(node.state.board)):
-            count_peg += node.state.board[i].count(c_peg())
+        for line in node.state.board:
+            count_peg += line.count(c_peg())
         return count_peg
