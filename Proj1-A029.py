@@ -104,10 +104,7 @@ class sol_state:
         return self.board >= other_sol_state.board
     
     def __hash__(self):
-        hashable_matrix = []
-        for line in self.board:
-            hashable_matrix.append(tuple(line))
-        return hash(tuple(hashable_matrix))
+        return hash(tuple([tuple(line) for line in self.board]))
     
 
 # Class solitaire
