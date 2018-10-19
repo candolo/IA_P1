@@ -1,3 +1,14 @@
+"""
+Projecto 1 - Inteligencia Artificial
+
+Implementacao de um agente capaz de solucionar tabuleiros do jogo Solitaire
+
+
+Grupo 29:
+- Hugo Miguel Neves do Vale n 75834
+- Joao Goncalo da Luz Rodrigues n 76154
+
+"""
 from search import Problem
 
 import copy
@@ -93,7 +104,10 @@ class sol_state:
         return self.board >= other_sol_state.board
     
     def __hash__(self):
-        return hash(tuple([tuple(line) for line in self.board]))
+        hashable_matrix = []
+        for line in self.board:
+            hashable_matrix.append(tuple(line))
+        return hash(tuple(hashable_matrix))
     
 
 # Class solitaire
