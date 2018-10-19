@@ -129,7 +129,7 @@ class solitaire(Problem):
         return count_peg == 1
     
     def path_cost(self, c, state1, action, state2):
-        return c + 1
+        return len(board_moves(state2.board))
     
     def h(self, node):
         """Needed for informed search."""
