@@ -9,7 +9,7 @@ Grupo 29:
 - Joao Goncalo da Luz Rodrigues n 76154
 
 """
-from search import Problem
+from search import *
 
 import copy
 
@@ -137,3 +137,11 @@ class solitaire(Problem):
         for line in node.state.board:
             count_peg += line.count(c_peg())
         return count_peg
+
+game1 = solitaire([["_","O","O","O","_"],["O","_","O","_","O"],["_","O","_","O","_"],["O","_","O","_","_"],["_","O","_","_","_"]])
+game2 = solitaire([["O","O","O","X"],["O","O","O","O"],["O","_","O","O"],["O","O","O","O"]])
+game3 = solitaire([["O","O","O","X","X"],["O","O","O","O","O"],["O","_","O","_","O"],["O","O","O","O","O"]])
+game4 = solitaire([["O","O","O","X","X","X"],["O","_","O","O","O","O"],["O","O","O","O","O","O"],["O","O","O","O","O","O"]])
+
+compare_searchers([game1,game2,game3,game4],['Searcher','Board1','Board2','Board3','Board4'],[depth_first_tree_search_search, greedy_search, astar_search])
+
