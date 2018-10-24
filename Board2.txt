@@ -1,0 +1,15 @@
+### DFS ###
+Time: 1.8643783037075872
+Sucessors: 5986
+Goal Tests: 5987
+States: 6003
+### Greedy ###
+Time: 0.2267310669327791
+Sucessors: 275
+Goal Tests: 277
+States: 630
+### Astar ###
+Time: 0.04568393877360055
+Sucessors: 72
+Goal Tests: 74
+States: 117

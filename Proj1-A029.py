@@ -12,6 +12,7 @@ Grupo 29:
 from search import *
 
 import copy
+import time
 
 # TAI content
 def c_peg ():
@@ -143,5 +144,64 @@ game2 = solitaire([["O","O","O","X"],["O","O","O","O"],["O","_","O","O"],["O","O
 game3 = solitaire([["O","O","O","X","X"],["O","O","O","O","O"],["O","_","O","_","O"],["O","O","O","O","O"]])
 game4 = solitaire([["O","O","O","X","X","X"],["O","_","O","O","O","O"],["O","O","O","O","O","O"],["O","O","O","O","O","O"]])
 
-compare_searchers([game1,game2,game3,game4],['Searcher','Board1','Board2','Board3','Board4'],[depth_first_tree_search, greedy_search, astar_search])
+def run_searchs(game):
+    dfs_problem = InstrumentedProblem(game)
+    greedy_problem = InstrumentedProblem(game)
+    astar_problem = InstrumentedProblem(game)
+    
+    #DFS Test
+    t0_dfs = time.clock()
+    depth_first_tree_search(dfs_problem)
+    t1_dfs = time.clock()
+    t_dfs = t1_dfs - t0_dfs
+    
+    #Greedy Test
+    t0_greedy = time.clock()
+    greedy_search(greedy_problem)
+    t1_greedy = time.clock()
+    t_greedy = t1_greedy - t0_greedy    
+    
+    #Astar Test
+    t0_astar = time.clock()
+    astar_search(astar_problem)
+    t1_astar = time.clock()
+    t_astar = t1_astar - t0_astar
+    
+    dfs_word = "### DFS ###\nTime: " + repr(t_dfs) + "\nSucessors: " + repr(dfs_problem.succs) + "\nGoal Tests: " + repr(dfs_problem.goal_tests) + "\nStates: " + repr(dfs_problem.states)
+    print(dfs_word)
+    
+    greedy_word = "### Greedy ###\nTime: " + repr(t_greedy) + "\nSucessors: " + repr(greedy_problem.succs) + "\nGoal Tests: " + repr(greedy_problem.goal_tests) + "\nStates: " + repr(greedy_problem.states)
+    print(greedy_word)
+    
+    astar_word = "### Astar ###\nTime: " + repr(t_astar) + "\nSucessors: " + repr(astar_problem.succs) + "\nGoal Tests: " + repr(astar_problem.goal_tests) + "\nStates: " + repr(astar_problem.states)
+    print(astar_word)
+    
+    return dfs_word + "\n" + greedy_word + "\n" + astar_word
+    
+print("Running Searches in Board1\n")
+file = open("Board1.txt","w+")
+result = run_searchs(game1)
+file.write(result)
+file.close
+print("\nBoard1 Searches Done\n")
 
+print("Running Searches in Board2\n")
+file = open("Board2.txt","w+")
+result = run_searchs(game2)
+file.write(result)
+file.close
+print("\nBoard2 Searches Done\n")
+
+print("Running Searches in Board3\n")
+file = open("Board3.txt","w+")
+result = run_searchs(game3)
+file.write(result)
+file.close
+print("\nBoard3 Searches Done\n")
+
+print("Running Searches in Board4\n")
+file = open("Board4.txt","w+")
+result = run_searchs(game4)
+file.write(result)
+file.close
+print("\nBoard4 Searches Done\n")
